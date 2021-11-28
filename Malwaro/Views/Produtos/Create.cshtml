@@ -1,0 +1,75 @@
+﻿@model Malwaro.Models.Produto
+
+@{
+    ViewData["Title"] = "Novo Produto";
+}
+
+<h1>Novo Produto</h1>
+
+
+<hr />
+<div class="row text-center">
+    <div class="col-md-6 offset-3 mt-4">
+        <div class="jumbotron border-info p-2">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ImageURL" class="control-label"></label>
+                    <input asp-for="ImageURL" class="form-control" />
+                    <span asp-validation-for="ImageURL" class="text-danger"></span>
+                </div>
+
+                <div class="col text-center ">
+                    <img class="rounded" id="ImageURLPreview" style="max-width: 400px" alt="Não foi possível carregar preview." />
+                </div>
+
+                <div class="text-center">
+                    <img id="ImageURLPreview" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ProdutoCategoria" class="control-label"></label>
+                    <select asp-for="ProdutoCategoria" asp-items="@Html.GetEnumSelectList<Malwaro.Data.ProdutoCategoria>()" class="form-control"></select>
+                    <span asp-validation-for="ProdutoCategoria" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Descricao" class="control-label"></label>
+                    <input asp-for="Descricao" class="form-control" />
+                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Valor" class="control-label"></label>
+                    <input asp-for="Valor" class="form-control" />
+                    <span asp-validation-for="Valor" class="text-danger"></span>
+                </div>
+                <div class="form-group btn-group">
+
+                    <a class="btn btn-outline-info" style="min-width: 48px" asp-action="Index">
+                        <i class="fa fa-arrow-left"></i> Catálogo
+                    </a>
+
+                    <input type="submit" class="btn btn-outline-success" value="Salvar" />
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    @section Scripts {
+        <script>
+            $("#ImageURL").on("change", function () {
+                var output = document.getElementById("ImageURLPreview");
+                output.src = $(this).val();
+            });
+        </script>
+
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+

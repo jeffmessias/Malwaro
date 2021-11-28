@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\MESSIAS\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\MESSIAS\\.nuget\\packages"
+    ]
+  }
+}

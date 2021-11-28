@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Malwaro.Models.Produto>
+
+@{
+    ViewData["Title"] = "Produtos";
+}
+
+<h1>Lista de Produtos</h1>
+<hr/>
+
+<a class="btn btn-outline-success mb-4" style="min-width: 48px" asp-action="Create">
+    <i class="fa fa-plus pr-2"></i> <b>NOVO PRODUTO</b>
+</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Imagem
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoCategoria)
+            </th>
+            @if (User.Identity.IsAuthenticated && User.IsInRole(MalwaroRoles.Admin))
+            {
+                <th></th>
+            }
+            </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td class="align-middle">
+                <img class="rounded" src="@item.ImageURL" alt="@item.Nome" style="max-width: 150px" />
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td class="align-middle">
+                <h4>
+                    <span class="badge badge-success">
+                        @String.Format("R$ {0:n2}", item.Valor)
+                    </span>
+                </h4>
+            </td>
+            <td class="align-middle">
+                @Html.DisplayFor(modelItem => item.ProdutoCategoria)
+            </td>
+            @if (User.Identity.IsAuthenticated && User.IsInRole(MalwaroRoles.Admin))
+            {
+                <td class="align-middle">
+                    <a class="btn btn-outline-warning" style="min-width: 48px" asp-action="Edit" asp-route-id="@item.Id">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a class="btn btn-outline-info" style="min-width: 48px" asp-action="Details" asp-route-id="@item.Id">
+                        <i class="fa fa-info"></i>
+                    </a>
+                    <a class="btn btn-outline-danger" style="min-width: 48px" asp-action="Delete" asp-route-id="@item.Id">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
