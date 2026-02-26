@@ -1,0 +1,104 @@
+@model Malwaro.Models.Pedido
+
+@{
+    ViewData["Title"] = "Pedido Confirmado - Malwaro";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Mensagem de Sucesso -->
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h4 class="alert-heading"><i class="fas fa-check-circle"></i> Pagamento Confirmado!</h4>
+                <p>Seu pedido foi processado com sucesso. Obrigado por sua compra!</p>
+            </div>
+
+            <!-- Detalhes do Pedido -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5><i class="fas fa-receipt"></i> Detalhes do Pedido #@Model.Id</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>Status do Pagamento:</strong></p>
+                            <span class="badge bg-success" style="font-size: 1rem;">@Model.Status</span>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Método de Pagamento:</strong></p>
+                            <span class="badge bg-info" style="font-size: 1rem;">@Model.MetodoPagamento</span>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <!-- Itens do Pedido -->
+                    <h6>Itens do Pedido:</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor Unitário</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.PedidoItens)
+                                {
+                                    <tr>
+                                        <td>@item.Produto.Nome</td>
+                                        <td>@item.Quantidade</td>
+                                        <td>R$ @item.Valor.ToString("N2")</td>
+                                        <td>R$ @(item.Quantidade * item.Valor).ToString("N2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <hr />
+
+                    <!-- Total -->
+                    <div class="text-end">
+                        <h5>
+                            <strong>Total do Pedido:</strong>
+                            <span class="text-success">R$ @Model.PedidoItens.Sum(x => x.Quantidade * x.Valor).ToString("N2")</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Próximos Passos -->
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="fas fa-info-circle"></i> Próximos Passos</h5>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        <li>Você receberá um e-mail de confirmação em breve.</li>
+                        <li>Acompanhe o status do seu pedido na página "Meus Pedidos".</li>
+                        <li>Seu pedido será preparado e enviado em breve.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="@Url.Action("Index", "Pedidos")" class="btn btn-primary btn-lg">
+                    <i class="fas fa-list"></i> Meus Pedidos
+                </a>
+                <a href="@Url.Action("Catalog", "Produtos")" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-shopping-bag"></i> Continuar Comprando
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .badge {
+        padding: 0.5rem 1rem;
+    }
+</style>

@@ -1,0 +1,52 @@
+﻿@model Malwaro.Data.UsuarioViewModel;
+
+
+@{
+    ViewData["Title"] = "Fazer Login";
+}
+
+
+<div class="row text-center">
+    <div class="col-md-4 offset-4 mt-4">
+        <div class="jumbotron border-info p-2">
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <b><label asp-for="EmailAddress" class="control-label"></label></b>
+                    <input asp-for="EmailAddress" class="form-control" />
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <b><label asp-for="Password" class="control-label"></label></b>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <hr />
+
+                @if (TempData["LoginError"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @TempData["LoginError"]
+                    </div>
+                }
+
+                @if (TempData["LoginSuccess"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["LoginSuccess"]
+                    </div>
+                }
+
+                <div class="btn-group">
+                    <a class="btn btn-outline-info border-info" style="min-width: 48px" asp-controller="Produtos" asp-action="Catalog">
+                        <i class="fa fa-arrow-left"></i> Catálogo
+                    </a>
+                    <input type="submit" class="btn btn-outline-success border-success" style="min-width: 48px" value="Login">
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>

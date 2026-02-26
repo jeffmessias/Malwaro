@@ -1,0 +1,11 @@
+﻿@model int;
+
+@if (Model > 0)
+{
+    <li class="nav-item">
+        <a class="nav-link btn btn-outline-success border-success" 
+           asp-controller="Pedidos" asp-action="Carrinho">
+            <i class="fa fa-shopping-cart"></i> <span class="badge badge-success rounded-circle">@Model</span>
+        </a>
+    </li>
+}

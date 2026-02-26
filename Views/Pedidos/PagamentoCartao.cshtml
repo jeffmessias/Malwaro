@@ -1,0 +1,117 @@
+@model CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Pagamento com Cartão - Malwaro";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4><i class="fas fa-credit-card"></i> Pagamento com Cartão de Crédito</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="ConfirmarPagamento">
+                        <input type="hidden" name="pedidoId" value="@Model.PedidoId" />
+
+                        <!-- Informações do Pagamento -->
+                        <div class="alert alert-info">
+                            <strong>Valor a Pagar:</strong> R$ @Model.Total.ToString("N2")
+                            <br />
+                            <strong>Pedido:</strong> #@Model.PedidoId
+                        </div>
+
+                        <!-- Número do Cartão -->
+                        <div class="form-group mb-3">
+                            <label for="cardNumber" class="form-label">Número do Cartão</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required />
+                        </div>
+
+                        <!-- Nome do Titular -->
+                        <div class="form-group mb-3">
+                            <label for="cardName" class="form-label">Nome do Titular</label>
+                            <input type="text" class="form-control" id="cardName" placeholder="NOME COMPLETO" required />
+                        </div>
+
+                        <!-- Data de Validade e CVV -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="cardExpiry" class="form-label">Validade (MM/AA)</label>
+                                    <input type="text" class="form-control" id="cardExpiry" placeholder="MM/AA" maxlength="5" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="cardCvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cardCvv" placeholder="000" maxlength="4" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CPF do Titular -->
+                        <div class="form-group mb-3">
+                            <label for="cardCpf" class="form-label">CPF do Titular</label>
+                            <input type="text" class="form-control" id="cardCpf" placeholder="000.000.000-00" maxlength="14" required />
+                        </div>
+
+                        <!-- Checkbox de Termos -->
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="termsCheck" required />
+                            <label class="form-check-label" for="termsCheck">
+                                Concordo com os termos e condições de pagamento
+                            </label>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-lock"></i> Pagar R$ @Model.Total.ToString("N2")
+                            </button>
+                            <a href="@Url.Action("Checkout", "Pedidos", new { pedidoId = Model.PedidoId })" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                        </div>
+
+                        <p class="text-muted small mt-3 text-center">
+                            <i class="fas fa-lock"></i> Seus dados estão seguros e criptografados
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Formatar número do cartão
+    document.getElementById("cardNumber").addEventListener("input", function(e) {
+        let value = e.target.value.replace(/\s/g, "");
+        let formattedValue = value.match(/.{1,4}/g)?.join(" ") || value;
+        e.target.value = formattedValue;
+    });
+
+    // Formatar data de validade
+    document.getElementById("cardExpiry").addEventListener("input", function(e) {
+        let value = e.target.value.replace(/\D/g, "");
+        if (value.length >= 2) {
+            value = value.slice(0, 2) + "/" + value.slice(2, 4);
+        }
+        e.target.value = value;
+    });
+
+    // Formatar CPF
+    document.getElementById("cardCpf").addEventListener("input", function(e) {
+        let value = e.target.value.replace(/\D/g, "");
+        if (value.length > 0) {
+            value = value.slice(0, 3) + "." + value.slice(3, 6) + "." + value.slice(6, 9) + "-" + value.slice(9, 11);
+        }
+        e.target.value = value;
+    });
+
+    // Validar CVV (apenas números)
+    document.getElementById("cardCvv").addEventListener("input", function(e) {
+        e.target.value = e.target.value.replace(/\D/g, "");
+    });
+</script>

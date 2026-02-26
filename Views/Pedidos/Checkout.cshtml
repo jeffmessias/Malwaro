@@ -1,0 +1,82 @@
+@model CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout - Malwaro";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Escolha o Método de Pagamento</h2>
+            <hr />
+
+            <div class="alert alert-info">
+                <strong>Total do Pedido:</strong> R$ @Model.Total.ToString("N2")
+            </div>
+
+            <form method="post" asp-action="ProcessarPagamento">
+                <input type="hidden" name="pedidoId" value="@Model.PedidoId" />
+
+                <div class="row mt-4">
+                    <!-- Opção PIX -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100 border-success" style="cursor: pointer;" onclick="document.getElementById('pixRadio').click();">
+                            <div class="card-body text-center">
+                                <i class="fas fa-qrcode" style="font-size: 3rem; color: #00d4ff;"></i>
+                                <h5 class="card-title mt-3">PIX</h5>
+                                <p class="card-text">Pagamento instantâneo via QR Code</p>
+                                <input type="radio" id="pixRadio" name="metodoPagamento" value="1" class="form-check-input" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Opção Cartão de Crédito -->
+                    <div class="col-md-6 mb-3">
+                        <div class="card h-100 border-primary" style="cursor: pointer;" onclick="document.getElementById('cartaoRadio').click();">
+                            <div class="card-body text-center">
+                                <i class="fas fa-credit-card" style="font-size: 3rem; color: #1f77d2;"></i>
+                                <h5 class="card-title mt-3">Cartão de Crédito</h5>
+                                <p class="card-text">Pague com seu cartão de crédito</p>
+                                <input type="radio" id="cartaoRadio" name="metodoPagamento" value="2" class="form-check-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fas fa-arrow-right"></i> Continuar
+                    </button>
+                    <a href="@Url.Action("Carrinho", "Pedidos")" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Resumo do Pedido -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5>Resumo do Pedido</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>ID do Pedido:</strong> #@Model.PedidoId</p>
+                    <hr />
+                    <p><strong>Total:</strong> <span class="text-success" style="font-size: 1.5rem;">R$ @Model.Total.ToString("N2")</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+</style>

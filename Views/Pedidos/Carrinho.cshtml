@@ -1,0 +1,87 @@
+﻿@model Malwaro.Data.CarrinhoViewModel
+
+@{
+    ViewData["Title"] = "Carrinho";
+}
+
+
+<div class="row">
+    <a class="btn btn-outline-info  mx-2" style="min-width: 48px" asp-controller="Produtos" asp-action="Catalog">
+        <i class="fa fa-arrow-left"></i>
+    </a>
+    <h1>Carrinho</h1>
+</div>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Quantidade
+            </th>
+            <th>
+                Produto
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Subtotal
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Carrinho.Itens)
+        {
+            <tr>
+                <td class="align-middle">
+                    @item.Quantidade
+                </td>
+                <td class="align-middle">
+                    <img class="rounded" src="@item.Produto.ImageURL" alt="@item.Produto.Nome" style="max-width: 150px" />
+                    <span class="px-2">@item.Produto.Nome</span>
+                </td>
+                <td class="align-middle">
+                    @String.Format("R$ {0:N2}", item.Produto.Valor);
+                </td>
+                <td class="align-middle">
+                    @String.Format("R$ {0:N2}", item.Produto.Valor * item.Quantidade);
+                </td>
+                <td class="align-middle">
+                    <a class="btn btn-outline-danger" style="min-width: 48px" asp-action="RemoveFromCarrinho" asp-route-id="@item.Produto.Id">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a class="btn btn-outline-success" style="min-width: 48px" asp-action="AddToCarrinho" asp-route-id="@item.Produto.Id">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+            </td>
+            <td>
+                <b>Total:</b>
+            </td>
+            <td>
+                @String.Format("R$ {0:N2}", Model.Total)
+            </td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="text-center">
+    <div class="btn-group">
+        <a class="btn btn-outline-info border-info" style="min-width: 48px" asp-controller="Produtos" asp-action="Catalog">
+            <i class="fa fa-arrow-left"></i> Catálogo
+        </a>
+        <a class="btn btn-outline-success border-success" style="min-width: 48px" asp-action="Create">
+            Finalizar Pedido <i class="fa fa-cart-arrow-down"></i>
+        </a>
+    </div>
+</div>
+ 

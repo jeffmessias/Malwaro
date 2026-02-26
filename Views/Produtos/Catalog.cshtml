@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Malwaro.Models.Produto>
+
+@{
+    ViewData["Title"] = "Catálogo";
+}
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+    <div class="col-md-4 col-xs-6 border-primary mb-3">
+        <div class="card h-100 shadow-sm">
+            <a asp-action="Details" asp-route-id="@item.Id">
+                <img src="@item.ImageURL" class="card-img-top" alt="@item.Nome" />
+            </a>
+            <div class="card-body text-center">
+                <h5 class="card-title">
+                    <a class="text-white" asp-action="Details" asp-route-id="@item.Id">
+                        @item.Nome
+                    </a>
+                </h5>
+                <a class="btn btn-outline-success border-success rounded-pill" asp-controller="Pedidos" asp-action="AddToCarrinho" asp-route-id="@item.Id">
+                    @String.Format("R$ {0:N2}", item.Valor) <i class="fa fa-cart-plus pl-2"></i>
+                </a>
+            </div>
+            <div class="card-footer text-center">
+                <h6 class="card-subtitle text-warning">
+                    @item.ProdutoCategoria
+                </h6>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>

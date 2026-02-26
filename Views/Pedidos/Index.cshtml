@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Malwaro.Models.Pedido>
+
+@{
+    ViewData["Title"] = "Pedidos";
+}
+
+@if (User.Identity.IsAuthenticated && !User.IsInRole(MalwaroRoles.Admin))
+{
+    <h1>Meus Pedidos</h1>
+}
+else
+{
+    <h1>Pedidos</h1>
+}
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Itens
+            </th>
+            <th>
+                Total
+            </th>
+            @if (User.Identity.IsAuthenticated && User.IsInRole(MalwaroRoles.Admin))
+            {
+                <th>
+                    Usuário
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="align-middle">
+                    @item.Id
+                </td>
+                <td class="align-middle">
+                    <ul style="list-style-type: none">
+                        @foreach (var pi in item.PedidoItens)
+                        {
+                            <li>
+                                <div class="alert">
+                                    <img class="rounded" src="@pi.Produto.ImageURL" alt="@pi.Produto.Nome" style="max-width: 90px" />
+                                    <span class="badge badge-success">@pi.Quantidade x</span> [@String.Format("R$ {0:N2}", pi.Valor)] - @pi.Produto.Nome
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </td>
+                <td class="align-middle">
+                    <h4>
+                        <span class="badge badge-success">
+                            @String.Format("R$ {0:n2}", item.PedidoItens.Select(e => e.Produto.Valor * e.Quantidade).Sum())
+                        </span>
+                    </h4>
+                </td>
+                @if (User.Identity.IsAuthenticated && User.IsInRole(MalwaroRoles.Admin))
+                {
+                    <td class="align-middle">
+                        @item.Usuario.Nome - [@item.Usuario.Email]
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
