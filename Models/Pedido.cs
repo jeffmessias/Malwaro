@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +22,12 @@ namespace Malwaro.Models
 
         public StatusPagamento Status { get; set; }
         public MetodoPagamento MetodoPagamento { get; set; }
+
+        [Display(Name = "Número de Parcelas")]
+        public int NumeroParcelas { get; set; } = 1;
+
+        [Display(Name = "Taxa de Juros (%)")]
+        public double TaxaJuros { get; set; } = 0;
 
     }
 }

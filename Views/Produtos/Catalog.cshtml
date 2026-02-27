@@ -11,7 +11,7 @@
     <div class="col-md-4 col-xs-6 border-primary mb-3">
         <div class="card h-100 shadow-sm">
             <a asp-action="Details" asp-route-id="@item.Id">
-                <img src="@item.ImageURL" class="card-img-top" alt="@item.Nome" />
+                <img src="@item.ImageURL" class="card-img-top" alt="@item.Nome" style="height: 300px; object-fit: cover;" />
             </a>
             <div class="card-body text-center">
                 <h5 class="card-title">

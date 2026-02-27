@@ -6927,23 +6927,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jefferson.santos\\.nuget\\packages\\": {},
+    "C:\\Users\\MESSIAS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jefferson.santos\\source\\repos\\Malwaro-Ajustado\\Malwaro\\Malwaro.csproj",
+      "projectUniqueName": "C:\\Users\\MESSIAS\\source\\repos\\Malwaro\\Malwaro.csproj",
       "projectName": "Malwaro",
-      "projectPath": "C:\\Users\\jefferson.santos\\source\\repos\\Malwaro-Ajustado\\Malwaro\\Malwaro.csproj",
-      "packagesPath": "C:\\Users\\jefferson.santos\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jefferson.santos\\source\\repos\\Malwaro-Ajustado\\Malwaro\\obj\\",
+      "projectPath": "C:\\Users\\MESSIAS\\source\\repos\\Malwaro\\Malwaro.csproj",
+      "packagesPath": "C:\\Users\\MESSIAS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MESSIAS\\source\\repos\\Malwaro\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\jefferson.santos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MESSIAS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

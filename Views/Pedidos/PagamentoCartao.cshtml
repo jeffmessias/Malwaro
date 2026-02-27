@@ -14,6 +14,8 @@
                 <div class="card-body">
                     <form method="post" asp-action="ConfirmarPagamento">
                         <input type="hidden" name="pedidoId" value="@Model.PedidoId" />
+                        <input type="hidden" name="numeroParcelas" id="numeroParcelasHidden" value="1" />
+                        <input type="hidden" name="taxaJuros" id="taxaJurosHidden" value="0" />
 
                         <!-- Informações do Pagamento -->
                         <div class="alert alert-info">
@@ -48,6 +50,25 @@
                                     <input type="text" class="form-control" id="cardCvv" placeholder="000" maxlength="4" required />
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Seleção de Parcelas -->
+                        <div class="form-group mb-3">
+                            <label for="numeroParcelas" class="form-label">Número de Parcelas</label>
+                            <select class="form-control" id="numeroParcelas" name="numeroParcelas" onchange="atualizarValorParcelas()" required>
+                                <option value="1">1x de R$ @Model.Total.ToString("N2") (sem juros)</option>
+                                <option value="2">2x de R$ @(Model.Total / 2).ToString("N2") (sem juros)</option>
+                                <option value="3">3x de R$ @(Model.Total / 3).ToString("N2") (sem juros)</option>
+                                <option value="4">4x de R$ @(Model.Total / 4).ToString("N2") (sem juros)</option>
+                                <option value="5">5x de R$ @(Model.Total / 5).ToString("N2") (sem juros)</option>
+                                <option value="6">6x de R$ @(Model.Total / 6 * 1.015).ToString("N2") (com 1,5% de juros)</option>
+                                <option value="7">7x de R$ @(Model.Total / 7 * 1.015).ToString("N2") (com 1,5% de juros)</option>
+                                <option value="8">8x de R$ @(Model.Total / 8 * 1.015).ToString("N2") (com 1,5% de juros)</option>
+                                <option value="9">9x de R$ @(Model.Total / 9 * 1.015).ToString("N2") (com 1,5% de juros)</option>
+                                <option value="10">10x de R$ @(Model.Total / 10 * 1.015).ToString("N2") (com 1,5% de juros)</option>
+                                <option value="11">11x de R$ @(Model.Total / 11 * 1.015).ToString("N2") (com 1,5% de juros)</option>
+                                <option value="12">12x de R$ @(Model.Total / 12 * 1.015).ToString("N2") (com 1,5% de juros)</option>
+                            </select>
                         </div>
 
                         <!-- CPF do Titular -->
@@ -114,4 +135,18 @@
     document.getElementById("cardCvv").addEventListener("input", function(e) {
         e.target.value = e.target.value.replace(/\D/g, "");
     });
+
+    // Atualizar valor das parcelas
+    function atualizarValorParcelas() {
+        const numeroParcelas = document.getElementById("numeroParcelas").value;
+        const total = @Model.Total;
+        let taxa = 0;
+
+        if (numeroParcelas > 5) {
+            taxa = 0.015; // 1,5% de juros
+        }
+
+        document.getElementById("numeroParcelasHidden").value = numeroParcelas;
+        document.getElementById("taxaJurosHidden").value = taxa;
+    }
 </script>

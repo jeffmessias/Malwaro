@@ -48,8 +48,14 @@ namespace Malwaro.Migrations
                     b.Property<int>("MetodoPagamento")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("NumeroParcelas")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
+
+                    b.Property<double>("TaxaJuros")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");

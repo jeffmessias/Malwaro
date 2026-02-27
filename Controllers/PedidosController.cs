@@ -256,7 +256,7 @@ namespace Malwaro.Controllers
 
         // POST: Pedidos/ConfirmarPagamento
         [HttpPost]
-        public async Task<IActionResult> ConfirmarPagamento(int pedidoId)
+        public async Task<IActionResult> ConfirmarPagamento(int pedidoId, int numeroParcelas = 1, double taxaJuros = 0)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -270,7 +270,25 @@ namespace Malwaro.Controllers
                 return NotFound();
             }
 
+            // Validar parcelas (maximo 12)
+            if (numeroParcelas < 1 || numeroParcelas > 12)
+            {
+                numeroParcelas = 1;
+            }
+
+            // Calcular taxa de juros (1,5% para parcelas acima de 5)
+            if (numeroParcelas > 5)
+            {
+                taxaJuros = 0.015;
+            }
+            else
+            {
+                taxaJuros = 0;
+            }
+
             pedido.Status = StatusPagamento.Pago;
+            pedido.NumeroParcelas = numeroParcelas;
+            pedido.TaxaJuros = taxaJuros;
             _context.Pedido.Update(pedido);
             await _context.SaveChangesAsync();
 

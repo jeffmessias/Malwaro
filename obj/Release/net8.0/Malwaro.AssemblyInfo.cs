@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Malwaro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9aca961316e22c8d61a9f2a21d11d43527ec4fe8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Malwaro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Malwaro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
