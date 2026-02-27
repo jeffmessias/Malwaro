@@ -40,12 +40,7 @@ O projeto Malwaro é construído utilizando as seguintes tecnologias, frameworks
 
 ## Como Executar o Projeto
 
-(Instruções detalhadas sobre como configurar e executar o projeto seriam adicionadas aqui, caso fosse necessário.)
+Abrir o terminal e dotnerun 
+Após isso vai mostrar o localhost que deve ser acessado
 
-## Contribuições
 
-(Informações sobre como contribuir para o projeto seriam adicionadas aqui.)
-
-## Licença
-
-(Informações sobre a licença do projeto seriam adicionadas aqui.)
